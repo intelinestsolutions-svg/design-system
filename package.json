@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npx serve public/",
     "preview": "npx serve public/",
+    "build": "mkdir -p dist && cp -r public/* dist/",
     "lint": "npx eslint public/index.html"
   },
   "keywords": [
