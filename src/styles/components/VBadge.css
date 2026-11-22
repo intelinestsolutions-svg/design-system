@@ -105,7 +105,7 @@
 
 .n-alert__body {
   flex: 1;
-  color: var(--text-primary);
+  color: inherit;
 }
 
 .n-alert__title {
@@ -135,19 +135,19 @@
 
 .n-alert--info { background: var(--c-blue-50); border-color: var(--c-blue-200); color: var(--c-blue-800); }
 .n-alert--info .n-alert__icon { stroke: var(--c-blue-600); }
-:root[data-theme="dark"] .n-alert--info { background: var(--c-blue-900/10); border-color: var(--c-blue-700); color: var(--c-blue-200); }
+:root[data-theme="dark"] .n-alert--info { background: color-mix(in srgb, var(--c-blue-900) 12%, transparent); border-color: var(--c-blue-700); color: var(--c-blue-200); }
 
 .n-alert--success { background: var(--c-green-50); border-color: var(--c-green-200); color: var(--c-green-800); }
 .n-alert--success .n-alert__icon { stroke: var(--c-green-600); }
-:root[data-theme="dark"] .n-alert--success { background: var(--c-green-900/10); border-color: var(--c-green-700); color: var(--c-green-200); }
+:root[data-theme="dark"] .n-alert--success { background: color-mix(in srgb, var(--c-green-900) 12%, transparent); border-color: var(--c-green-700); color: var(--c-green-200); }
 
 .n-alert--warning { background: var(--c-amber-50); border-color: var(--c-amber-200); color: var(--c-amber-800); }
 .n-alert--warning .n-alert__icon { stroke: var(--c-amber-600); }
-:root[data-theme="dark"] .n-alert--warning { background: var(--c-amber-900/10); border-color: var(--c-amber-700); color: var(--c-amber-200); }
+:root[data-theme="dark"] .n-alert--warning { background: color-mix(in srgb, var(--c-amber-900) 12%, transparent); border-color: var(--c-amber-700); color: var(--c-amber-200); }
 
 .n-alert--error { background: var(--c-red-50); border-color: var(--c-red-200); color: var(--c-red-800); }
 .n-alert--error .n-alert__icon { stroke: var(--c-red-600); }
-:root[data-theme="dark"] .n-alert--error { background: var(--c-red-900/10); border-color: var(--c-red-700); color: var(--c-red-200); }
+:root[data-theme="dark"] .n-alert--error { background: color-mix(in srgb, var(--c-red-900) 12%, transparent); border-color: var(--c-red-700); color: var(--c-red-200); }
 
 /* ========================================================================
    VSkeleton — loading placeholder
