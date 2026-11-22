@@ -1,0 +1,78 @@
+/* ==========================================================================
+   VCard — Component Styles
+   ========================================================================== */
+
+.n-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    border-color var(--duration-200) var(--ease-out),
+    box-shadow var(--duration-200) var(--ease-out),
+    background-color var(--duration-200) var(--ease-out);
+}
+
+.n-card:hover {
+  border-color: var(--border-default);
+}
+
+.n-card--elevated {
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+/* Padding variants */
+.n-card--none { padding: var(--space-0); }
+.n-card--small { padding: var(--space-4); }
+.n-card--medium { padding: var(--space-6); }
+.n-card--large { padding: var(--space-8); }
+
+/* Card sections */
+.n-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-4);
+}
+
+.n-card-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.n-card-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.n-card-body {
+  flex: 1;
+  color: var(--text-secondary);
+}
+
+.n-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  margin-top: var(--space-4);
+}
+
+/* Clickable card */
+.n-card--clickable {
+  cursor: pointer;
+}
+
+.n-card--clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}

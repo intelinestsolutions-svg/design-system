@@ -1,0 +1,96 @@
+/* ==========================================================================
+   VInput — Component Styles
+   ========================================================================== */
+
+.n-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.n-input-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+}
+
+.n-input-hint {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--space-1);
+}
+
+.n-input {
+  width: 100%;
+  padding: 0 var(--space-4);
+  height: var(--input-height-md);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-none);
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-150) var(--ease-out),
+    background-color var(--duration-150) var(--ease-out),
+    box-shadow var(--duration-150) var(--ease-out);
+  outline: none;
+}
+
+.n-input:hover:not(:focus) {
+  border-color: var(--border-strong);
+}
+
+.n-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+.n-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.n-input:disabled {
+  background: var(--bg-disabled);
+  color: var(--text-disabled);
+  border-color: var(--border-subtle);
+  cursor: not-allowed;
+}
+
+/* State variants */
+.n-input--focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+.n-input--error {
+  border-color: var(--border-error);
+  color: var(--state-error-text);
+}
+
+.n-input--error:focus {
+  border-color: var(--border-error);
+  box-shadow: 0 0 0 3px var(--c-red-50);
+}
+
+/* Sizes */
+.n-input--small {
+  height: var(--input-height-sm);
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.n-input--large {
+  height: var(--input-height-lg);
+  padding: 0 var(--space-6);
+  font-size: var(--text-lg);
+}
+
+/* Error message */
+.n-input-error {
+  font-size: var(--text-xs);
+  color: var(--state-error-text);
+  margin-top: var(--space-1);
+}

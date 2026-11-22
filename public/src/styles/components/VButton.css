@@ -1,0 +1,126 @@
+/* ==========================================================================
+   VButton — Component Styles
+   ========================================================================== */
+
+.n-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-none);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-150) var(--ease-out),
+    border-color var(--duration-150) var(--ease-out),
+    color var(--duration-150) var(--ease-out),
+    box-shadow var(--duration-150) var(--ease-out),
+    transform var(--duration-100) var(--ease-out);
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+  outline: none;
+}
+
+.n-button:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.n-button:active:not([disabled]) {
+  transform: scale(0.97);
+}
+
+/* -- Variants -- */
+.n-button--primary {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+  border: 1px solid var(--accent-primary);
+}
+
+.n-button--primary:hover:not([disabled]) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.n-button--primary:active:not([disabled]) {
+  background: var(--accent-active);
+}
+
+.n-button--secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+.n-button--secondary:hover:not([disabled]) {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.n-button--secondary:active:not([disabled]) {
+  background: var(--bg-active);
+}
+
+/* -- Sizes -- */
+.n-button--small {
+  height: var(--btn-height-sm);
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.n-button--medium {
+  height: var(--btn-height-md);
+  padding: 0 var(--space-4);
+  font-size: var(--text-base);
+}
+
+.n-button--large {
+  height: var(--btn-height-lg);
+  padding: 0 var(--space-6);
+  font-size: var(--text-lg);
+}
+
+/* -- Disabled -- */
+.n-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--bg-disabled);
+  color: var(--text-disabled);
+  border-color: var(--border-subtle);
+  pointer-events: none;
+}
+
+.n-button--disabled:active {
+  transform: none;
+}
+
+/* Loading state */
+.n-button--loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.n-button--loading::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin var(--duration-1000) linear infinite;
+}
+
+/* Icon support */
+.n-button-icon {
+  margin-right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-base);
+}
+
+.n-button-icon:last-child {
+  margin-right: 0;
+  margin-left: var(--space-2);
+}

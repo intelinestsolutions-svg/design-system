@@ -10,11 +10,23 @@ NextGen Kit is a modular design system with live playgrounds, rebuilt using the 
 
 ## Components
 
-| Component | Props | States |
-|-----------|-------|--------|
+| Tool | Props | States / options |
+|------|-------|------------------|
 | `VButton` | variant, size, disabled | primary, secondary · small, medium, large · disabled |
 | `VInput` | label, state, hint, type, disabled | idle, focus, error · text, email, password, search |
 | `VCard` | title, padding, elevated | none, small, medium, large · elevated |
+| `VBadge` | variant, dot, outline | neutral, primary, secondary, success, warning, danger |
+| `VModal` | title, dismissible | open, closed · dismissible, blocked |
+| `VAlert` | variant, title, message, dismissible | info, success, warning, error · dismissible |
+| `VAvatar` | initials, size, status, bordered | xs–xl · online, away, offline |
+| `VBreadcrumb` | current, separator | separators `/`, `›`, `•` · current page |
+| `VDivider` | label, orientation | horizontal, vertical · optional label |
+| `VProgress` | value, variant, showLabel | 0–100% · primary, secondary, success |
+| `VSpinner` | size, variant | sm, md, lg · primary, secondary, success |
+| `VSkeleton` | variant, lines | text, card, avatar, button · 1–5 lines |
+| `VSwitch` | label, checked, disabled | on, off, disabled |
+| `VTable` | rows, striped, compact | 1–5 rows · striped, compact |
+| `VTooltip` | text, position | top, bottom, left, right |
 
 ## Design System Assets
 

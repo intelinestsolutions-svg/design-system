@@ -1,0 +1,219 @@
+/* ==========================================================================
+   VExtra — progress, spinner, switch, divider, breadcrumb and tooltip styles
+   ========================================================================== */
+
+/* VProgress ---------------------------------------------------------------- */
+.n-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 24rem;
+}
+
+.n-progress__track {
+  flex: 1;
+  height: 0.5rem;
+  background: var(--bg-active);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.n-progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent-primary);
+  transition: width var(--duration-300) var(--ease-out);
+}
+
+.n-progress--secondary .n-progress__bar { background: var(--c-teal-500); }
+.n-progress--success .n-progress__bar { background: var(--c-green-500); }
+
+.n-progress__label {
+  min-width: 2.75rem;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.n-table--compact th,
+.n-table--compact td { padding: var(--space-2) var(--space-3); }
+
+/* VSpinner ----------------------------------------------------------------- */
+.n-spinner {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--border-default);
+  border-top-color: var(--accent-primary);
+  border-radius: var(--radius-full);
+  animation: spin var(--duration-800) var(--ease-linear) infinite;
+}
+
+.n-spinner--sm { width: 1rem; height: 1rem; border-width: 2px; }
+.n-spinner--lg { width: 2.25rem; height: 2.25rem; border-width: 4px; }
+.n-spinner--secondary { border-top-color: var(--c-teal-500); }
+.n-spinner--success { border-top-color: var(--c-green-500); }
+
+/* VSwitch ------------------------------------------------------------------ */
+.n-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.n-switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.n-switch__track {
+  width: 2.5rem;
+  height: 1.375rem;
+  padding: 0.125rem;
+  border-radius: var(--radius-full);
+  background: var(--border-default);
+  transition: background-color var(--duration-200) var(--ease-out);
+}
+
+.n-switch__thumb {
+  display: block;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-200) var(--ease-spring);
+}
+
+.n-switch input:checked + .n-switch__track { background: var(--accent-primary); }
+.n-switch input:checked + .n-switch__track .n-switch__thumb { transform: translateX(1.125rem); }
+.n-switch input:focus-visible + .n-switch__track { box-shadow: var(--shadow-focus); }
+.n-switch input:disabled + .n-switch__track { opacity: 0.5; }
+.n-switch--disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* VDivider ----------------------------------------------------------------- */
+.n-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  color: var(--text-tertiary);
+  font-size: var(--text-xs);
+}
+
+.n-divider::before,
+.n-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.n-divider__label {
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.n-divider--vertical {
+  width: 1px;
+  height: 5rem;
+  flex-direction: column;
+}
+
+.n-divider--vertical::before,
+.n-divider--vertical::after {
+  width: 1px;
+  height: auto;
+}
+
+/* VBreadcrumb -------------------------------------------------------------- */
+.n-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.n-breadcrumb a { color: var(--text-secondary); }
+.n-breadcrumb a:hover { color: var(--accent-text); }
+.n-breadcrumb__sep { color: var(--text-tertiary); }
+.n-breadcrumb__current {
+  color: var(--text-primary);
+  font-weight: var(--font-semibold);
+}
+
+/* VTooltip ----------------------------------------------------------------- */
+.n-tooltip {
+  position: relative;
+}
+
+.n-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translate(-50%, 4px);
+  background: var(--text-primary);
+  color: var(--bg-surface);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-150) var(--ease-out), transform var(--duration-150) var(--ease-out);
+  z-index: var(--z-20);
+}
+
+.n-tooltip:hover::after,
+.n-tooltip:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.n-tooltip--bottom::after {
+  bottom: auto;
+  top: calc(100% + 0.5rem);
+  transform: translate(-50%, -4px);
+}
+
+.n-tooltip--bottom:hover::after,
+.n-tooltip--bottom:focus-visible::after { transform: translate(-50%, 0); }
+
+.n-tooltip--left::after {
+  left: auto;
+  right: calc(100% + 0.5rem);
+  top: 50%;
+  bottom: auto;
+  transform: translate(4px, -50%);
+}
+
+.n-tooltip--left:hover::after,
+.n-tooltip--left:focus-visible::after { transform: translate(0, -50%); }
+
+.n-tooltip--right::after {
+  left: calc(100% + 0.5rem);
+  right: auto;
+  top: 50%;
+  bottom: auto;
+  transform: translate(-4px, -50%);
+}
+
+.n-tooltip--right:hover::after,
+.n-tooltip--right:focus-visible::after { transform: translate(0, -50%); }
+
+/* Range controls ----------------------------------------------------------- */
+.control-range {
+  width: 100%;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}

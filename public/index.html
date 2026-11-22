@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NextGen Kit — A complete design system toolkit with live playgrounds, built on OpenIntelligentUI design system tokens">
+  <meta name="theme-color" content="#ffffff">
   <title>NextGen Kit · Complete Design System Toolkit</title>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
@@ -29,6 +30,7 @@
   <link rel="stylesheet" href="/src/styles/components/VCard.css">
   <link rel="stylesheet" href="/src/styles/components/VBadge.css">
   <link rel="stylesheet" href="/src/styles/components/VModal.css">
+  <link rel="stylesheet" href="/src/styles/components/VExtra.css">
 
   <style>
     /* ========================================================================
@@ -60,7 +62,7 @@
       transition: all var(--duration-150) var(--ease-out);
     }
     .nav-link:hover { color: var(--text-primary); background: var(--bg-hover); }
-    .nav-link.active { color: var(--accent-primary); background: var(--accent-subtle); }
+    .nav-link.active { color: var(--accent-text); background: var(--accent-subtle); }
     .controls-bar { display: flex; gap: var(--space-2); align-items: center; margin-left: var(--space-4); }
     .theme-toggle {
       width: var(--size-sm); height: var(--size-sm); border-radius: var(--radius-full);
@@ -196,7 +198,7 @@
     /* Toast */
     .toast {
       position: fixed; bottom: var(--space-6); right: var(--space-6);
-      background: var(--text-primary); color: var(--text-inverse);
+      background: var(--text-primary); color: var(--bg-surface);
       padding: var(--space-3) var(--space-6); border-radius: var(--radius-lg);
       box-shadow: var(--shadow-xl); font-size: var(--text-sm); font-weight: var(--font-medium);
       transform: translateY(100px); opacity: 0; transition: all var(--duration-300) var(--ease-out);
@@ -205,8 +207,8 @@
     .toast.show { transform: translateY(0); opacity: 1; }
 
     /* Dark mode */
-    .dark-mode .theme-toggle .sun-icon { display: none; }
-    .dark-mode .theme-toggle .moon-icon { display: block; }
+    :root[data-theme="dark"] .theme-toggle .sun-icon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon-icon { display: block; }
     .theme-toggle .moon-icon { display: none; }
 
     @media (max-width: 640px) {
@@ -218,7 +220,7 @@
     }
   </style>
 </head>
-<body class="dark-mode">
+<body>
   <div class="app">
     <!-- Header -->
     <header class="site-header">
@@ -250,10 +252,10 @@
     <main class="main">
       <div class="container-narrow">
         <!-- Hero -->
-        <section class="hero">
+        <section id="about" class="hero">
           <div class="hero-kicker">
             <span class="badge badge-primary">v2.0</span>
-            <span>· Design System</span>
+            <span>· 15 interactive tools</span>
           </div>
           <h1 class="hero-title">NextGen Kit</h1>
           <p class="hero-subtitle">A complete design system toolkit with live playgrounds. Configure props, watch specimens respond, copy the exact markup. Everything you need to ship consistent UI fast.</p>
@@ -268,8 +270,8 @@
 
         <!-- Components -->
         <section id="components" class="components-section">
-          <h2 style="font-size: var(--text-xl); font-weight: var(--font-bold); color: var(--text-primary); margin-bottom: var(--space-6);">Components</h2>
-          <div class="component-grid">
+          <h2 style="font-size: var(--text-xl); font-weight: var(--font-bold); color: var(--text-primary); margin-bottom: var(--space-6);">15 Interactive Tools</h2>
+          <div id="playgrounds" class="component-grid">
 
             <!-- VButton -->
             <div class="component-card" id="vbutton">
@@ -288,7 +290,7 @@
                   <span class="playground-title">Live Playground</span>
                   <div class="playground-actions">
                     <button class="reset-btn" onclick="resetProps('vbutton')">Reset props</button>
-                    <button class="copy-btn" onclick="copySnippet('vbutton')" title="Copy snippet">
+                    <button class="copy-btn" onclick="copySnippet('vbutton')" title="Copy snippet" aria-label="Copy snippet">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                   </div>
@@ -299,14 +301,14 @@
                 </div>
                 <div class="controls-panel">
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">variant</span><span class="prop-type">primary \| secondary</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vbutton-variant">variant</label><span class="prop-type">primary | secondary</span></div>
                     <select class="control-select" id="ctrl-vbutton-variant" onchange="updateProp('vbutton','variant',this.value)">
                       <option value="primary">primary</option><option value="secondary">secondary</option>
                     </select>
                     <p class="prop-description">Visual style — primary for main actions, secondary for supporting actions</p>
                   </div>
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">size</span><span class="prop-type">small \| medium \| large</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vbutton-size">size</label><span class="prop-type">small | medium | large</span></div>
                     <select class="control-select" id="ctrl-vbutton-size" onchange="updateProp('vbutton','size',this.value)">
                       <option value="small">small</option><option value="medium">medium</option><option value="large">large</option>
                     </select>
@@ -319,7 +321,7 @@
                   </div>
                 </div>
                 <div class="snippet-panel">
-                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vbutton')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vbutton')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
                   <div class="snippet-code" id="snippet-vbutton">&lt;VButton /&gt;</div>
                 </div>
               </div>
@@ -351,7 +353,7 @@
                   <span class="playground-title">Live Playground</span>
                   <div class="playground-actions">
                     <button class="reset-btn" onclick="resetProps('vinput')">Reset props</button>
-                    <button class="copy-btn" onclick="copySnippet('vinput')" title="Copy snippet">
+                    <button class="copy-btn" onclick="copySnippet('vinput')" title="Copy snippet" aria-label="Copy snippet">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                   </div>
@@ -359,29 +361,29 @@
                 <div class="specimen-area" id="specimen-vinput">
                   <div class="specimen-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6h22M1 12h22M1 18h22"/></svg><div>Configure props to see the input specimen</div></div>
                   <div id="specimen-vinput-live" style="display:none;">
-                    <div class="n-input-wrapper"><label class="n-input-label">Work email</label><input class="n-input" type="email" placeholder="Enter your email"></div>
+                    <div class="n-input-wrapper"><label class="n-input-label" for="specimen-vinput-field">Work email</label><input id="specimen-vinput-field" class="n-input" type="email" placeholder="Enter your email" aria-describedby="specimen-vinput-hint"><p class="n-input-hint" id="specimen-vinput-hint">Enter your email</p></div>
                   </div>
                 </div>
                 <div class="controls-panel">
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">label</span><span class="prop-type">string</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vinput-label">label</label><span class="prop-type">string</span></div>
                     <input class="control-text" id="ctrl-vinput-label" type="text" value="Work email" oninput="updateProp('vinput','label',this.value)">
                     <p class="prop-description">Visible label text — also used as aria-label if no explicit one given</p>
                   </div>
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">state</span><span class="prop-type">idle \| focus \| error</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vinput-state">state</label><span class="prop-type">idle | focus | error</span></div>
                     <select class="control-select" id="ctrl-vinput-state" onchange="updateProp('vinput','state',this.value)">
                       <option value="idle">idle</option><option value="focus">focus</option><option value="error">error</option>
                     </select>
                     <p class="prop-description">Explicit interaction state — drives border, background, text color</p>
                   </div>
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">hint</span><span class="prop-type">string</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vinput-hint">hint</label><span class="prop-type">string</span></div>
                     <input class="control-text" id="ctrl-vinput-hint" type="text" value="Enter your email" oninput="updateProp('vinput','hint',this.value)">
                     <p class="prop-description">Helper text below field — visible to all users</p>
                   </div>
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">type</span><span class="prop-type">text \| email \| password \| search</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vinput-type">type</label><span class="prop-type">text | email | password | search</span></div>
                     <select class="control-select" id="ctrl-vinput-type" onchange="updateProp('vinput','type',this.value)">
                       <option value="text">text</option><option value="email">email</option><option value="password">password</option><option value="search">search</option>
                     </select>
@@ -394,7 +396,7 @@
                   </div>
                 </div>
                 <div class="snippet-panel">
-                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vinput')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vinput')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
                   <div class="snippet-code" id="snippet-vinput">&lt;VInput /&gt;</div>
                 </div>
               </div>
@@ -420,7 +422,7 @@
                   <span class="playground-title">Live Playground</span>
                   <div class="playground-actions">
                     <button class="reset-btn" onclick="resetProps('vcard')">Reset props</button>
-                    <button class="copy-btn" onclick="copySnippet('vcard')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                    <button class="copy-btn" onclick="copySnippet('vcard')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                   </div>
                 </div>
                 <div class="specimen-area" id="specimen-vcard">
@@ -431,12 +433,12 @@
                 </div>
                 <div class="controls-panel">
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">title</span><span class="prop-type">string</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vcard-title">title</label><span class="prop-type">string</span></div>
                     <input class="control-text" id="ctrl-vcard-title" type="text" value="Quarterly invoice" oninput="updateProp('vcard','title',this.value)">
                     <p class="prop-description">Heading text — rendered as h3 with semantic heading hierarchy</p>
                   </div>
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">padding</span><span class="prop-type">none \| small \| medium \| large</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vcard-padding">padding</label><span class="prop-type">none | small | medium | large</span></div>
                     <select class="control-select" id="ctrl-vcard-padding" onchange="updateProp('vcard','padding',this.value)">
                       <option value="none">none</option><option value="small">small</option><option value="medium">medium</option><option value="large">large</option>
                     </select>
@@ -449,7 +451,7 @@
                   </div>
                 </div>
                 <div class="snippet-panel">
-                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vcard')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vcard')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
                   <div class="snippet-code" id="snippet-vcard">&lt;VCard /&gt;</div>
                 </div>
               </div>
@@ -475,7 +477,7 @@
                   <span class="playground-title">Live Playground</span>
                   <div class="playground-actions">
                     <button class="reset-btn" onclick="resetProps('vbadge')">Reset props</button>
-                    <button class="copy-btn" onclick="copySnippet('vbadge')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                    <button class="copy-btn" onclick="copySnippet('vbadge')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                   </div>
                 </div>
                 <div class="specimen-area" id="specimen-vbadge">
@@ -490,7 +492,7 @@
                 </div>
                 <div class="controls-panel">
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">variant</span><span class="prop-type">neutral \| primary \| secondary · success \| warning \| danger</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vbadge-variant">variant</label><span class="prop-type">neutral | primary | secondary · success | warning | danger</span></div>
                     <select class="control-select" id="ctrl-vbadge-variant" onchange="updateProp('vbadge','variant',this.value)">
                       <option value="neutral">neutral</option><option value="primary">primary</option><option value="secondary">secondary</option><option value="success">success</option><option value="warning">warning</option><option value="danger">danger</option>
                     </select>
@@ -508,7 +510,7 @@
                   </div>
                 </div>
                 <div class="snippet-panel">
-                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vbadge')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vbadge')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
                   <div class="snippet-code" id="snippet-vbadge">&lt;VBadge /&gt;</div>
                 </div>
               </div>
@@ -534,7 +536,7 @@
                   <span class="playground-title">Live Playground</span>
                   <div class="playground-actions">
                     <button class="reset-btn" onclick="resetProps('vmodal')">Reset props</button>
-                    <button class="copy-btn" onclick="copySnippet('vmodal')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                    <button class="copy-btn" onclick="copySnippet('vmodal')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
                   </div>
                 </div>
                 <div class="specimen-area" id="specimen-vmodal">
@@ -544,7 +546,7 @@
                 </div>
                 <div class="controls-panel">
                   <div class="prop-group">
-                    <div class="prop-label-row"><span class="prop-name">title</span><span class="prop-type">string</span></div>
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vmodal-title">title</label><span class="prop-type">string</span></div>
                     <input class="control-text" id="ctrl-vmodal-title" type="text" value="Confirm action" oninput="updateProp('vmodal','title',this.value)">
                     <p class="prop-description">Dialog heading — rendered as h2</p>
                   </div>
@@ -555,7 +557,7 @@
                   </div>
                 </div>
                 <div class="snippet-panel">
-                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vmodal')" title="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vmodal')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
                   <div class="snippet-code" id="snippet-vmodal">&lt;VModal /&gt;</div>
                 </div>
               </div>
@@ -570,6 +572,483 @@
               </div>
             </div>
 
+            <!-- VAlert -->
+            <div class="component-card" id="valert">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VAlert</h3>
+                  <p>A status message that explains what happened and what to do next.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">Info · Success · Warning · Error</span><span class="meta-badge badge">Dismissible</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('valert')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('valert')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-valert">
+                  <div id="specimen-valert-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-valert-variant">variant</label><span class="prop-type">info | success | warning | error</span></div>
+                    <select class="control-select" id="ctrl-valert-variant" onchange="updateProp('valert','variant',this.value)"><option value="info">info</option><option value="success">success</option><option value="warning">warning</option><option value="error">error</option></select>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-valert-title">title</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-valert-title" type="text" value="Heads up" oninput="updateProp('valert','title',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-valert-message">message</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-valert-message" type="text" value="Your changes are saved." oninput="updateProp('valert','message',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-valert-dismissible">dismissible</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-valert-dismissible" onchange="updateProp('valert','dismissible',this.checked)" checked><span>Allow dismiss</span></label>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('valert')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-valert">&lt;VAlert /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Use <code>info</code> for context, <code>success</code> for confirmation, <code>warning</code> for risk, and <code>error</code> for failure.</li>
+                  <li>Pair the color with a clear title and message; never rely on color alone.</li>
+                  <li>Dismissible alerts keep the close control visible and keyboard accessible.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VAvatar -->
+            <div class="component-card" id="vavatar">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VAvatar</h3>
+                  <p>An identity marker with initials fallback, size scale, and presence dot.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">5 sizes</span><span class="meta-badge badge">Presence · Bordered</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vavatar')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vavatar')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vavatar">
+                  <div id="specimen-vavatar-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vavatar-initials">initials</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-vavatar-initials" type="text" value="SP" oninput="updateProp('vavatar','initials',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vavatar-size">size</label><span class="prop-type">xs | sm | md | lg | xl</span></div>
+                    <select class="control-select" id="ctrl-vavatar-size" onchange="updateProp('vavatar','size',this.value)"><option value="xs">xs</option><option value="sm">sm</option><option value="md">md</option><option value="lg">lg</option><option value="xl">xl</option></select>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vavatar-status">status</label><span class="prop-type">none | online | away | offline</span></div>
+                    <select class="control-select" id="ctrl-vavatar-status" onchange="updateProp('vavatar','status',this.value)"><option value="none">none</option><option value="online">online</option><option value="away">away</option><option value="offline">offline</option></select>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vavatar-bordered">bordered</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-vavatar-bordered" onchange="updateProp('vavatar','bordered',this.checked)"><span>Add border</span></label>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vavatar')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vavatar">&lt;VAvatar /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Initials are the fallback when no image is available — keep them short and meaningful.</li>
+                  <li>Presence is a visual supplement; provide text status for assistive technology in production.</li>
+                  <li>Sizes map to the spacing scale so avatars align with adjacent text.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VBreadcrumb -->
+            <div class="component-card" id="vbreadcrumb">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VBreadcrumb</h3>
+                  <p>A compact path back to parent screens with a clear current page.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">Separator control</span><span class="meta-badge badge">Current page</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vbreadcrumb')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vbreadcrumb')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vbreadcrumb">
+                  <div id="specimen-vbreadcrumb-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vbreadcrumb-current">current</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-vbreadcrumb-current" type="text" value="Components" oninput="updateProp('vbreadcrumb','current',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vbreadcrumb-separator">separator</label><span class="prop-type">/ | › | •</span></div>
+                    <select class="control-select" id="ctrl-vbreadcrumb-separator" onchange="updateProp('vbreadcrumb','separator',this.value)"><option value="/">/</option><option value="›">›</option><option value="•">•</option></select>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vbreadcrumb')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vbreadcrumb">&lt;VBreadcrumb /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Keep the last crumb as text with <code>aria-current="page"</code>, not a link.</li>
+                  <li>Use the same separator across the whole product to avoid visual noise.</li>
+                  <li>Collapse long trails on small screens instead of truncating labels silently.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VDivider -->
+            <div class="component-card" id="vdivider">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VDivider</h3>
+                  <p>A quiet separator that groups content without adding a new surface.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">Horizontal · Vertical</span><span class="meta-badge badge">Optional label</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vdivider')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vdivider')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vdivider">
+                  <div id="specimen-vdivider-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vdivider-label">label</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-vdivider-label" type="text" value="SECTION" oninput="updateProp('vdivider','label',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vdivider-orientation">orientation</label><span class="prop-type">horizontal | vertical</span></div>
+                    <select class="control-select" id="ctrl-vdivider-orientation" onchange="updateProp('vdivider','orientation',this.value)"><option value="horizontal">horizontal</option><option value="vertical">vertical</option></select>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vdivider')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vdivider">&lt;VDivider /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Dividers separate related content; use spacing alone when the relationship is obvious.</li>
+                  <li>Vertical dividers need an explicit height in the surrounding layout.</li>
+                  <li>Labels are uppercase on purpose — keep them short.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VProgress -->
+            <div class="component-card" id="vprogress">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VProgress</h3>
+                  <p>A determinate progress bar with an optional numeric label.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">0–100%</span><span class="meta-badge badge">3 variants</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vprogress')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vprogress')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vprogress">
+                  <div id="specimen-vprogress-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vprogress-value">value</label><span class="prop-type">number · 0–100</span></div>
+                    <input class="control-range" id="ctrl-vprogress-value" type="range" min="0" max="100" value="68" oninput="updateProp('vprogress','value',Number(this.value))">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vprogress-variant">variant</label><span class="prop-type">primary | secondary | success</span></div>
+                    <select class="control-select" id="ctrl-vprogress-variant" onchange="updateProp('vprogress','variant',this.value)"><option value="primary">primary</option><option value="secondary">secondary</option><option value="success">success</option></select>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vprogress-showLabel">showLabel</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-vprogress-showLabel" onchange="updateProp('vprogress','showLabel',this.checked)" checked><span>Show percentage</span></label>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vprogress')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vprogress">&lt;VProgress /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Always expose <code>role="progressbar"</code> with aria value attributes.</li>
+                  <li>Show the numeric label when precise progress matters; hide it in dense tables.</li>
+                  <li>Use <code>success</code> only when the task is actually complete.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VSpinner -->
+            <div class="component-card" id="vspinner">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VSpinner</h3>
+                  <p>A minimal loading indicator for short, indeterminate waits.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">3 sizes</span><span class="meta-badge badge">3 variants</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vspinner')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vspinner')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vspinner">
+                  <div id="specimen-vspinner-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vspinner-size">size</label><span class="prop-type">sm | md | lg</span></div>
+                    <select class="control-select" id="ctrl-vspinner-size" onchange="updateProp('vspinner','size',this.value)"><option value="sm">sm</option><option value="md">md</option><option value="lg">lg</option></select>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vspinner-variant">variant</label><span class="prop-type">primary | secondary | success</span></div>
+                    <select class="control-select" id="ctrl-vspinner-variant" onchange="updateProp('vspinner','variant',this.value)"><option value="primary">primary</option><option value="secondary">secondary</option><option value="success">success</option></select>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vspinner')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vspinner">&lt;VSpinner /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Pair the spinner with text such as “Loading” for screen readers.</li>
+                  <li>Use a skeleton for layout-shaped waits and a spinner for actions.</li>
+                  <li>Animation is reduced automatically when the OS requests reduced motion.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VSkeleton -->
+            <div class="component-card" id="vskeleton">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VSkeleton</h3>
+                  <p>A shimmer placeholder that mirrors the shape of incoming content.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">Text · Card · Avatar · Button</span><span class="meta-badge badge">Reduced motion</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vskeleton')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vskeleton')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vskeleton">
+                  <div id="specimen-vskeleton-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vskeleton-variant">variant</label><span class="prop-type">text | card | avatar | button</span></div>
+                    <select class="control-select" id="ctrl-vskeleton-variant" onchange="updateProp('vskeleton','variant',this.value)"><option value="text">text</option><option value="card">card</option><option value="avatar">avatar</option><option value="button">button</option></select>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vskeleton-lines">lines</label><span class="prop-type">number · 1–5</span></div>
+                    <input class="control-range" id="ctrl-vskeleton-lines" type="range" min="1" max="5" value="3" oninput="updateProp('vskeleton','lines',Number(this.value))">
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vskeleton')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vskeleton">&lt;VSkeleton /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Match the final content dimensions to prevent layout shift when data arrives.</li>
+                  <li>Prefer skeletons over spinners for content that has a predictable shape.</li>
+                  <li>Shimmer animation follows the design token duration and reduced-motion settings.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VSwitch -->
+            <div class="component-card" id="vswitch">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VSwitch</h3>
+                  <p>A labelled toggle for settings that take effect immediately.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">Checked · Disabled</span><span class="meta-badge badge">Keyboard ready</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vswitch')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vswitch')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vswitch">
+                  <div id="specimen-vswitch-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vswitch-label">label</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-vswitch-label" type="text" value="Enable notifications" oninput="updateProp('vswitch','label',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vswitch-checked">checked</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-vswitch-checked" onchange="updateProp('vswitch','checked',this.checked)" checked><span>On</span></label>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vswitch-disabled">disabled</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-vswitch-disabled" onchange="updateProp('vswitch','disabled',this.checked)"><span>Disabled</span></label>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vswitch')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vswitch">&lt;VSwitch /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Switches are for instant on/off settings; use a checkbox for form submission values.</li>
+                  <li>Keep the label next to the control — it is the accessible name.</li>
+                  <li>Disabled switches stay visible but announce their state to assistive technology.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VTable -->
+            <div class="component-card" id="vtable">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VTable</h3>
+                  <p>A dense data surface with striped rows and compact spacing options.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">Striped · Compact</span><span class="meta-badge badge">1–5 rows</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vtable')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vtable')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vtable">
+                  <div id="specimen-vtable-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vtable-rows">rows</label><span class="prop-type">number · 1–5</span></div>
+                    <input class="control-range" id="ctrl-vtable-rows" type="range" min="1" max="5" value="3" oninput="updateProp('vtable','rows',Number(this.value))">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vtable-striped">striped</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-vtable-striped" onchange="updateProp('vtable','striped',this.checked)" checked><span>Striped rows</span></label>
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vtable-compact">compact</label><span class="prop-type">boolean</span></div>
+                    <label class="control-toggle"><input type="checkbox" id="ctrl-vtable-compact" onchange="updateProp('vtable','compact',this.checked)"><span>Compact spacing</span></label>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vtable')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vtable">&lt;VTable /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Use numeric cells with <code>n-table-cell--numeric</code> so figures align.</li>
+                  <li>Striping helps scanning wide tables; keep it consistent across the product.</li>
+                  <li>For small screens, allow horizontal scroll instead of hiding columns silently.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- VTooltip -->
+            <div class="component-card" id="vtooltip">
+              <div class="component-header">
+                <div class="component-info">
+                  <h3>VTooltip</h3>
+                  <p>A hover and focus hint that stays out of the layout until needed.</p>
+                </div>
+                <div class="component-meta"><span class="meta-badge badge">4 positions</span><span class="meta-badge badge">Focus visible</span></div>
+              </div>
+              <div class="playground">
+                <div class="playground-header">
+                  <span class="playground-title">Live Playground</span>
+                  <div class="playground-actions">
+                    <button class="reset-btn" onclick="resetProps('vtooltip')">Reset props</button>
+                    <button class="copy-btn" onclick="copySnippet('vtooltip')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  </div>
+                </div>
+                <div class="specimen-area" id="specimen-vtooltip">
+                  <div id="specimen-vtooltip-live"></div>
+                </div>
+                <div class="controls-panel">
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vtooltip-text">text</label><span class="prop-type">string</span></div>
+                    <input class="control-text" id="ctrl-vtooltip-text" type="text" value="Helpful hint" oninput="updateProp('vtooltip','text',this.value)">
+                  </div>
+                  <div class="prop-group">
+                    <div class="prop-label-row"><label class="prop-name" for="ctrl-vtooltip-position">position</label><span class="prop-type">top | bottom | left | right</span></div>
+                    <select class="control-select" id="ctrl-vtooltip-position" onchange="updateProp('vtooltip','position',this.value)"><option value="top">top</option><option value="bottom">bottom</option><option value="left">left</option><option value="right">right</option></select>
+                  </div>
+                </div>
+                <div class="snippet-panel">
+                  <div class="snippet-header"><span class="snippet-title">Snippet</span><button class="copy-btn" onclick="copySnippet('vtooltip')" title="Copy snippet" aria-label="Copy snippet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+                  <div class="snippet-code" id="snippet-vtooltip">&lt;VTooltip /&gt;</div>
+                </div>
+              </div>
+              <div class="usage-notes">
+                <h4>Usage Notes</h4>
+                <ul>
+                  <li>Tooltips supplement visible labels — never hide essential instructions inside them.</li>
+                  <li>Hover and keyboard focus show the same hint.</li>
+                  <li>Keep tooltip text short; if it needs a paragraph, use helper text instead.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -586,10 +1065,10 @@
           </div>
         </div>
         <div class="footer-links">
-          <a href="#" class="footer-link">Documentation</a>
-          <a href="#" class="footer-link">GitHub</a>
-          <a href="#" class="footer-link">Changelog</a>
-          <a href="#" class="footer-link">License</a>
+          <a href="https://github.com/intelinestsolutions-svg/next#readme" class="footer-link" target="_blank" rel="noopener">Documentation</a>
+          <a href="https://github.com/intelinestsolutions-svg/next" class="footer-link" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/intelinestsolutions-svg/next/commits/main" class="footer-link" target="_blank" rel="noopener">Changelog</a>
+          <a href="https://github.com/intelinestsolutions-svg/next/blob/main/LICENSE" class="footer-link" target="_blank" rel="noopener">License</a>
         </div>
         <div class="footer-note">Built with the OpenIntelligentUI design system · MIT Licensed · Components persist via localStorage per device</div>
       </div>
@@ -600,16 +1079,16 @@
 
     <!-- Modal overlay template (hidden) -->
     <div id="modal-template" style="display:none">
-      <div class="n-modal__overlay" id="modal-overlay">
-        <div class="n-modal">
+      <div class="n-modal__overlay" data-modal-overlay>
+        <div class="n-modal" role="dialog" aria-modal="true">
           <div class="n-modal__header">
-            <h2 class="n-modal__title" id="modal-title">Confirm action</h2>
-            <button class="n-modal__close" id="modal-close" aria-label="Close modal">×</button>
+            <h2 class="n-modal__title" data-modal-title>Confirm action</h2>
+            <button class="n-modal__close" data-modal-close aria-label="Close modal">×</button>
           </div>
-          <div class="n-modal__body" id="modal-body">Are you sure you want to proceed? This cannot be undone.</div>
+          <div class="n-modal__body">Are you sure you want to proceed? This cannot be undone.</div>
           <div class="n-modal__footer">
-            <button class="n-button n-button--secondary" id="modal-cancel">Cancel</button>
-            <button class="n-button n-button--primary" id="modal-confirm">Confirm</button>
+            <button class="n-button n-button--secondary" data-modal-cancel>Cancel</button>
+            <button class="n-button n-button--primary" data-modal-confirm>Confirm</button>
           </div>
         </div>
       </div>
@@ -625,7 +1104,17 @@
         vinput: { label: 'Work email', state: 'idle', hint: 'Enter your email', type: 'email', disabled: false },
         vcard: { title: 'Quarterly invoice', padding: 'medium', elevated: false },
         vbadge: { variant: 'primary', dot: false, outline: false },
-        vmodal: { title: 'Confirm action', dismissible: true }
+        vmodal: { title: 'Confirm action', dismissible: true },
+        valert: { variant: 'info', title: 'Heads up', message: 'Your changes are saved.', dismissible: true },
+        vavatar: { initials: 'SP', size: 'md', status: 'none', bordered: false },
+        vbreadcrumb: { current: 'Components', separator: '/' },
+        vdivider: { label: 'SECTION', orientation: 'horizontal' },
+        vprogress: { value: 68, variant: 'primary', showLabel: true },
+        vspinner: { size: 'md', variant: 'primary' },
+        vskeleton: { variant: 'text', lines: 3 },
+        vswitch: { label: 'Enable notifications', checked: true, disabled: false },
+        vtable: { rows: 3, striped: true, compact: false },
+        vtooltip: { text: 'Helpful hint', position: 'top' }
       };
 
       const state = {};
@@ -669,14 +1158,19 @@
       }
 
       function escapeHtml(str) {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
+        return String(str).replace(/[&<>"']/g, char => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        })[char]);
       }
 
       function generateSnippet(componentId) {
         const s = state[componentId];
-        const tagMap = { vbutton: 'VButton', vinput: 'VInput', vcard: 'VCard', vbadge: 'VBadge', vmodal: 'VModal' };
+        const tagMap = {
+          vbutton: 'VButton', vinput: 'VInput', vcard: 'VCard', vbadge: 'VBadge', vmodal: 'VModal',
+          valert: 'VAlert', vavatar: 'VAvatar', vbreadcrumb: 'VBreadcrumb', vdivider: 'VDivider',
+          vprogress: 'VProgress', vspinner: 'VSpinner', vskeleton: 'VSkeleton', vswitch: 'VSwitch',
+          vtable: 'VTable', vtooltip: 'VTooltip'
+        };
         const tag = tagMap[componentId];
         const defaults = DEFAULTS[componentId];
         const attrs = [];
@@ -699,7 +1193,7 @@
           const btns = document.querySelectorAll(`[onclick="copySnippet('${componentId}')"]`);
           btns.forEach(b => b.classList.add('copied'));
           setTimeout(() => btns.forEach(b => b.classList.remove('copied')), 1500);
-        });
+        }).catch(() => showToast('Copy unavailable — select the snippet'));
       };
 
       function showToast(message) {
@@ -709,6 +1203,113 @@
         setTimeout(() => toast.classList.remove('show'), 2500);
       }
 
+      function renderExtraAlert(s) {
+        const live = document.getElementById('specimen-valert-live');
+        live.innerHTML = `<div class="n-alert n-alert--${s.variant}" role="status">
+          <svg class="n-alert__icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <div class="n-alert__body"><strong class="n-alert__title">${escapeHtml(s.title)}</strong><span>${escapeHtml(s.message)}</span></div>
+          ${s.dismissible ? '<button class="n-alert__dismiss" type="button" aria-label="Dismiss alert">×</button>' : ''}
+        </div>`;
+        const dismiss = live.querySelector('.n-alert__dismiss');
+        if (dismiss) dismiss.onclick = () => { live.querySelector('.n-alert').style.display = 'none'; };
+      }
+
+      function renderExtraAvatar(s) {
+        const live = document.getElementById('specimen-vavatar-live');
+        const status = s.status === 'none'
+          ? ''
+          : `<span class="n-avatar n-avatar--status n-avatar--status--${s.status}" aria-hidden="true"></span>`;
+        live.innerHTML = `<div class="n-avatar n-avatar--${s.size} ${s.bordered ? 'n-avatar--bordered' : ''}" role="img" aria-label="${escapeHtml(s.initials)}"><span class="n-avatar__initials">${escapeHtml(s.initials)}</span>${status}</div>`;
+      }
+
+      function renderExtraBreadcrumb(s) {
+        const live = document.getElementById('specimen-vbreadcrumb-live');
+        const sep = `<span class="n-breadcrumb__sep">${escapeHtml(s.separator)}</span>`;
+        live.innerHTML = `<nav class="n-breadcrumb" aria-label="Breadcrumb"><a href="#components">Home</a>${sep}<a href="#playgrounds">Library</a>${sep}<span class="n-breadcrumb__current" aria-current="page">${escapeHtml(s.current)}</span></nav>`;
+      }
+
+      function renderExtraDivider(s) {
+        const live = document.getElementById('specimen-vdivider-live');
+        const label = s.label.trim() ? `<span class="n-divider__label">${escapeHtml(s.label)}</span>` : '';
+        live.innerHTML = `<div class="n-divider ${s.orientation === 'vertical' ? 'n-divider--vertical' : ''}" role="separator" aria-orientation="${s.orientation}">${label}</div>`;
+      }
+
+      function renderExtraProgress(s) {
+        const live = document.getElementById('specimen-vprogress-live');
+        const value = Math.max(0, Math.min(100, Number(s.value) || 0));
+        live.innerHTML = `<div class="n-progress n-progress--${s.variant}">
+          <div class="n-progress__track" role="progressbar" aria-label="Task progress" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100"><div class="n-progress__bar" style="width:${value}%"></div></div>
+          ${s.showLabel ? `<span class="n-progress__label">${value}%</span>` : ''}
+        </div>`;
+      }
+
+      function renderExtraSpinner(s) {
+        const live = document.getElementById('specimen-vspinner-live');
+        live.innerHTML = `<div class="n-spinner n-spinner--${s.size} n-spinner--${s.variant}" role="status" aria-label="Loading"></div>`;
+      }
+
+      function renderExtraSkeleton(s) {
+        const live = document.getElementById('specimen-vskeleton-live');
+        live.style.cssText = 'display:flex;flex-direction:column;gap:var(--space-2);align-items:flex-start;width:100%';
+        if (s.variant === 'card') live.innerHTML = '<div class="n-skeleton n-skeleton--card" style="width:100%"></div>';
+        else if (s.variant === 'avatar') live.innerHTML = '<div class="n-skeleton n-skeleton--avatar"></div>';
+        else if (s.variant === 'button') live.innerHTML = '<div class="n-skeleton n-skeleton--button" style="width:9rem"></div>';
+        else {
+          const lines = Math.max(1, Math.min(5, Number(s.lines) || 1));
+          live.innerHTML = Array.from({ length: lines }, (_, index) => `<span class="n-skeleton n-skeleton--text ${index === 0 ? 'n-skeleton--text--lg' : ''}" style="width:${index === lines - 1 ? '62%' : '100%'}"></span>`).join('');
+        }
+      }
+
+      function renderExtraSwitch(s) {
+        const live = document.getElementById('specimen-vswitch-live');
+        live.innerHTML = `<label class="n-switch ${s.disabled ? 'n-switch--disabled' : ''}">
+          <input type="checkbox" ${s.checked ? 'checked' : ''} ${s.disabled ? 'disabled' : ''}>
+          <span class="n-switch__track"><span class="n-switch__thumb"></span></span>
+          <span class="n-switch__label">${escapeHtml(s.label)}</span>
+        </label>`;
+        const input = live.querySelector('input');
+        if (!s.disabled) {
+          input.onchange = () => {
+            state.vswitch.checked = input.checked;
+            saveState('vswitch');
+            syncControls('vswitch');
+            renderComponent('vswitch');
+          };
+        }
+      }
+
+      function renderExtraTable(s) {
+        const live = document.getElementById('specimen-vtable-live');
+        const rows = Math.max(1, Math.min(5, Number(s.rows) || 1));
+        const data = [
+          ['Design tokens', 'Foundations', '128'],
+          ['Playground', 'Components', '64'],
+          ['Snippet copy', 'Utilities', '32'],
+          ['Theme toggle', 'Utilities', '16'],
+          ['Accessibility pass', 'Quality', '8']
+        ].slice(0, rows);
+        const body = data.map(row => `<tr><td>${row[0]}</td><td>${row[1]}</td><td class="n-table-cell--numeric">${row[2]}</td></tr>`).join('');
+        live.innerHTML = `<table class="n-table ${s.striped ? 'n-table--striped' : ''} ${s.compact ? 'n-table--compact' : ''}"><thead><tr><th>Item</th><th>Group</th><th class="n-table-cell--numeric">Count</th></tr></thead><tbody>${body}</tbody></table>`;
+      }
+
+      function renderExtraTooltip(s) {
+        const live = document.getElementById('specimen-vtooltip-live');
+        live.innerHTML = `<button class="n-button n-button--secondary n-button--medium n-tooltip n-tooltip--${s.position}" type="button" data-tooltip="${escapeHtml(s.text)}" aria-describedby="vtooltip-desc">Hover or focus me</button><span id="vtooltip-desc" class="sr-only">${escapeHtml(s.text)}</span>`;
+      }
+
+      const EXTRA_RENDERERS = {
+        valert: renderExtraAlert,
+        vavatar: renderExtraAvatar,
+        vbreadcrumb: renderExtraBreadcrumb,
+        vdivider: renderExtraDivider,
+        vprogress: renderExtraProgress,
+        vspinner: renderExtraSpinner,
+        vskeleton: renderExtraSkeleton,
+        vswitch: renderExtraSwitch,
+        vtable: renderExtraTable,
+        vtooltip: renderExtraTooltip
+      };
+
       function renderComponent(componentId) {
         const s = state[componentId];
         document.getElementById(`snippet-${componentId}`).textContent = generateSnippet(componentId);
@@ -717,6 +1318,7 @@
         else if (componentId === 'vcard') renderCard(s);
         else if (componentId === 'vbadge') renderBadge(s);
         else if (componentId === 'vmodal') renderModal(s);
+        else if (EXTRA_RENDERERS[componentId]) EXTRA_RENDERERS[componentId](s);
       }
 
       function renderButton(s) {
@@ -733,7 +1335,7 @@
       function renderInput(s) {
         const live = document.getElementById('specimen-vinput-live');
         const placeholder = document.getElementById('specimen-vinput').querySelector('.specimen-placeholder');
-        live.innerHTML = `<div class="n-input-wrapper"><label class="n-input-label">${escapeHtml(s.label)}</label><input class="n-input n-input--${s.state}" type="${s.type}" placeholder="${escapeHtml(s.hint)}" ${s.disabled ? 'disabled' : ''}></div>`;
+        live.innerHTML = `<div class="n-input-wrapper"><label class="n-input-label" for="specimen-vinput-field">${escapeHtml(s.label)}</label><input id="specimen-vinput-field" class="n-input n-input--${s.state}" type="${s.type}" placeholder="${escapeHtml(s.hint)}" aria-describedby="specimen-vinput-hint" aria-invalid="${s.state === 'error'}" ${s.disabled ? 'disabled' : ''}><p class="n-input-hint" id="specimen-vinput-hint">${escapeHtml(s.hint)}</p></div>`;
         live.style.display = 'block';
         placeholder.style.display = 'none';
       }
@@ -768,54 +1370,89 @@
         placeholder.style.display = 'none';
 
         const root = document.getElementById('modal-vmodal-root');
-        const overlay = document.getElementById('modal-overlay');
-        const closeBtn = document.getElementById('modal-close');
-        const cancelBtn = document.getElementById('modal-cancel');
-        const confirmBtn = document.getElementById('modal-confirm');
-        const titleEl = document.getElementById('modal-title');
-
-        titleEl.textContent = s.title;
 
         const open = () => {
           root.innerHTML = '';
-          root.appendChild(document.getElementById('modal-template').cloneNode(true));
+          const template = document.getElementById('modal-template').cloneNode(true);
+          root.appendChild(template.querySelector('[data-modal-overlay]'));
           root.style.display = 'block';
-          const ov = root.querySelector('#modal-overlay');
+
+          const ov = root.querySelector('[data-modal-overlay]');
+          const dialog = ov.querySelector('[role="dialog"]');
+          const titleEl = ov.querySelector('[data-modal-title]');
+          const titleId = `modal-title-${Date.now()}`;
+          titleEl.id = titleId;
+          dialog.setAttribute('aria-labelledby', titleId);
+          titleEl.textContent = s.title;
           ov.style.display = 'flex';
-          ov.querySelector('.n-modal__title').textContent = s.title;
-          const cls = ov.querySelector('.n-modal__close');
-          const cncl = ov.querySelector('#modal-cancel');
-          const cfm = ov.querySelector('#modal-confirm');
+
           const dismiss = s.dismissible;
-          const close = () => { ov.style.display = 'none'; };
+          const cls = ov.querySelector('[data-modal-close]');
+          const cncl = ov.querySelector('[data-modal-cancel]');
+          const cfm = ov.querySelector('[data-modal-confirm]');
+          const focusable = () => [...ov.querySelectorAll('button')].filter(button => button.style.display !== 'none');
+          const previousFocus = live;
+
+          const close = () => {
+            document.removeEventListener('keydown', onKeydown);
+            root.style.display = 'none';
+            if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+          };
+          const onKeydown = (event) => {
+            if (event.key === 'Escape' && dismiss) {
+              event.preventDefault();
+              close();
+              return;
+            }
+            if (event.key !== 'Tab') return;
+            const items = focusable();
+            if (!items.length) return;
+            const first = items[0];
+            const last = items[items.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          };
+
           if (dismiss) {
             cls.onclick = close;
             cncl.onclick = close;
-            cfm.onclick = close;
-            ov.onclick = (e) => { if (e.target === ov) close(); };
+            ov.onclick = (event) => { if (event.target === ov) close(); };
           } else {
             cls.style.display = 'none';
             cncl.style.display = 'none';
-            cfm.onclick = close;
-            ov.onclick = null;
           }
+          cfm.onclick = close;
+          document.addEventListener('keydown', onKeydown);
+
+          (dismiss ? cls : cfm).focus();
         };
         live.onclick = open;
-        live.onkeypress = (e) => { if (e.key === 'Enter') open(); };
-        live.setAttribute('tabindex', '0');
-        live.setAttribute('role', 'button');
         live.setAttribute('aria-label', 'Open modal dialog');
       }
 
       function initTheme() {
         const toggle = document.getElementById('theme-toggle');
+        const themeColor = document.querySelector('meta[name="theme-color"]');
         const saved = localStorage.getItem('nextgen-theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const isDark = saved === 'dark' || (saved === null && prefersDark);
-        if (isDark) document.body.classList.add('dark-mode');
+        let isDark = saved === 'dark' || (saved === null && prefersDark);
+
+        const apply = () => {
+          document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+          toggle.setAttribute('aria-pressed', String(isDark));
+          themeColor?.setAttribute('content', isDark ? '#18181b' : '#ffffff');
+        };
+
+        apply();
         toggle.addEventListener('click', () => {
-          const isDarkNow = document.body.classList.toggle('dark-mode');
-          localStorage.setItem('nextgen-theme', isDarkNow ? 'dark' : 'light');
+          isDark = !isDark;
+          localStorage.setItem('nextgen-theme', isDark ? 'dark' : 'light');
+          apply();
         });
       }
 
