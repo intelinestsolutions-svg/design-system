@@ -1,0 +1,24 @@
+{
+  "name": "nextgen-kit",
+  "version": "2.0.0",
+  "description": "NextGen Kit — A modular design system with live playgrounds, built on OpenIntelligentUI design system tokens",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve public/",
+    "preview": "npx serve public/",
+    "lint": "npx eslint public/index.html"
+  },
+  "keywords": [
+    "design-system",
+    "components",
+    "playground",
+    "vue",
+    "css-tokens"
+  ],
+  "author": "StudioPro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intelinestsolutions-svg/design-system.git"
+  }
+}

@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NextGen Kit — A modular design system with live playgrounds, built on OpenIntelligentUI design system tokens">
+  <title>NextGen Kit · Modular Design System with Live Playgrounds</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://esm.sh/three",
+      "three/": "https://esm.sh/three/",
+      "gsap": "https://esm.sh/gsap",
+      "gsap/": "https://esm.sh/gsap/",
+      "d3": "https://esm.sh/d3",
+      "d3/": "https://esm.sh/d3/",
+      "chart.js": "https://esm.sh/chart.js",
+      "chart.js/": "https://esm.sh/chart.js/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/styles/components/VButton.css">
+  <link rel="stylesheet" href="/src/styles/components/VInput.css">
+  <link rel="stylesheet" href="/src/styles/components/VCard.css">
+
+  <style>
+    /* ========================================================================
+       Application Layout
+       ======================================================================== */
+
+    .app {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-50);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .header-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--space-4) var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .brand-mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-md);
+      background: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-inverse);
+      font-weight: var(--font-bold);
+      font-size: var(--text-lg);
+    }
+
+    .brand-text {
+      font-size: var(--text-xl);
+      font-weight: var(--font-bold);
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+    }
+
+    .brand-sub {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin-left: var(--space-2);
+    }
+
+    .nav {
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--text-secondary);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: all var(--duration-150) var(--ease-out);
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-hover);
+    }
+
+    .nav-link.active {
+      color: var(--accent-primary);
+      background: var(--accent-subtle);
+    }
+
+    /* Controls bar */
+    .controls-bar {
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+      margin-left: var(--space-4);
+    }
+
+    .theme-toggle {
+      width: var(--size-sm);
+      height: var(--size-sm);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--duration-200) var(--ease-out);
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-focus);
+      transform: rotate(15deg);
+    }
+
+    .theme-toggle svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      padding: var(--space-8) 0;
+    }
+
+    .container-narrow {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: var(--space-16);
+      animation: fadeIn var(--duration-700) var(--ease-out) both;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-text);
+      margin-bottom: var(--space-4);
+    }
+
+    .hero-title {
+      font-size: var(--text-5xl);
+      font-weight: var(--font-bold);
+      line-height: var(--leading-tight);
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-lg);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      max-width: 42rem;
+      margin: 0 auto var(--space-8);
+    }
+
+    /* Component grid */
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: var(--space-8);
+    }
+
+    @media (min-width: 768px) {
+      .component-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Component card */
+    .component-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--duration-300) var(--ease-out);
+      animation: fadeSlideIn var(--duration-500) var(--ease-out) both;
+    }
+
+    .component-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-default);
+      transform: translateY(-4px);
+    }
+
+    .component-header {
+      padding: var(--space-6);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .component-info h3 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-bold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .component-info p {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .component-meta {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    .meta-badge {
+      font-size: var(--text-xs);
+      font-weight: var(--font-medium);
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-hover);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Playground */
+    .playground {
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .playground-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .playground-title {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .playground-actions {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    /* Specimen area */
+    .specimen-area {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      background: var(--bg-canvas);
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .specimen-placeholder {
+      text-align: center;
+      color: var(--text-tertiary);
+    }
+
+    .specimen-placeholder svg {
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: var(--space-3);
+      opacity: 0.5;
+    }
+
+    /* Controls panel */
+    .controls-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .prop-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .prop-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .prop-name {
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      color: var(--text-primary);
+    }
+
+    .prop-type {
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+      background: var(--bg-hover);
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--radius-md);
+      color: var(--accent-text);
+    }
+
+    .prop-description {
+      font-size: var(--text-xs);
+      color: var(--text-tertiary);
+      margin-top: var(--space-1);
+    }
+
+    .prop-control {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .control-select,
+    .control-text {
+      width: 100%;
+      padding: var(--space-2) var(--space-3);
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--duration-150) var(--ease-out), box-shadow var(--duration-150) var(--ease-out);
+    }
+
+    .control-select:focus,
+    .control-text:focus {
+      border-color: var(--border-focus);
+      box-shadow: var(--shadow-focus);
+    }
+
+    .control-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      cursor: pointer;
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+    }
+
+    .control-toggle input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--accent-primary);
+      cursor: pointer;
+    }
+
+    .reset-btn {
+      width: 100%;
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--duration-150) var(--ease-out);
+    }
+
+    .reset-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    /* Snippet panel */
+    .snippet-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .snippet-header {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-hover);
+    }
+
+    .snippet-title {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--duration-150) var(--ease-out);
+    }
+
+    .copy-btn:hover {
+      border-color: var(--border-focus);
+      color: var(--accent-primary);
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-primary);
+      color: var(--text-inverse);
+      border-color: var(--accent-primary);
+    }
+
+    .snippet-code {
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: var(--leading-relaxed);
+      color: var(--text-primary);
+      overflow-x: auto;
+      background: var(--bg-canvas);
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* Prop table */
+    .prop-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+    }
+
+    .prop-table th {
+      text-align: left;
+      font-weight: var(--font-semibold);
+      color: var(--text-secondary);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .prop-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    .prop-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .prop-table tr:hover {
+      background: var(--bg-hover);
+    }
+
+    .prop-table .prop-name-cell {
+      font-weight: var(--font-medium);
+      font-family: var(--font-mono);
+    }
+
+    .prop-table .prop-type-cell {
+      font-family: var(--font-mono);
+      color: var(--accent-text);
+    }
+
+    .prop-table .prop-default-cell {
+      color: var(--text-tertiary);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+
+    .footer-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      border-top: 1px solid var(--border-subtle);
+      margin-top: var(--space-16);
+      padding-top: var(--space-8);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .footer-link:hover {
+      color: var(--text-link);
+    }
+
+    .footer-note {
+      font-size: var(--text-xs);
+      color: var(--text-tertiary);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: var(--space-4);
+      margin-top: var(--space-4);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      background: var(--text-primary);
+      color: var(--text-inverse);
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all var(--duration-300) var(--ease-out);
+      z-index: var(--z-50);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Badge states */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: var(--text-xs);
+      font-weight: var(--font-medium);
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--radius-full);
+    }
+
+    .badge-primary {
+      background: var(--c-purple-100);
+      color: var(--c-purple-700);
+    }
+
+    .badge-secondary {
+      background: var(--c-gray-100);
+      color: var(--c-gray-600);
+    }
+
+    /* Skeletons */
+    .skeleton {
+      background: linear-gradient(90deg, var(--bg-hover) 25%, var(--bg-active) 50%, var(--bg-hover) 75%);
+      background-size: 200% 100%;
+      animation: shimmer var(--duration-1000) infinite;
+      border-radius: var(--radius-md);
+    }
+
+    /* Dark mode class overrides */
+    .dark-mode .theme-toggle .sun-icon { display: none; }
+    .dark-mode .theme-toggle .moon-icon { display: block; }
+    .theme-toggle .moon-icon { display: none; }
+
+    @media (max-width: 640px) {
+      .hero-title { font-size: var(--text-3xl); }
+      .header-inner { padding: var(--space-3) var(--space-4); }
+      .controls-panel { padding: var(--space-3); }
+      .component-header { padding: var(--space-4); }
+      .playground { padding: var(--space-4); }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+  <div class="app">
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-mark">NG</div>
+          <div>
+            <div class="brand-text">NextGen Kit</div>
+            <div class="brand-sub">Design System v2.0</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a href="#components" class="nav-link active">Components</a>
+          <a href="#playgrounds" class="nav-link">Playgrounds</a>
+          <a href="#about" class="nav-link">About</a>
+        </nav>
+
+        <div class="controls-bar">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="container-narrow">
+        <!-- Hero -->
+        <section class="hero">
+          <div class="hero-kicker">
+            <span class="badge badge-primary">v2.0</span>
+            <span>· Design System</span>
+          </div>
+          <h1 class="hero-title">NextGen Kit</h1>
+          <p class="hero-subtitle">A modular design system with live playgrounds. Flip props, watch the specimen respond, copy the exact markup. Built on OpenIntelligentUI design system tokens.</p>
+          <div class="flex gap-4 justify-center">
+            <button class="n-button n-button--primary n-button--large" onclick="scrollToComponent('vbutton')">VButton</button>
+            <button class="n-button n-button--secondary n-button--large" onclick="scrollToComponent('vinput')">VInput</button>
+            <button class="n-button n-button--secondary n-button--large" onclick="scrollToComponent('vcard')">VCard</button>
+          </div>
+        </section>
+
+        <!-- Components -->
+        <section id="components" class="components-section">
+          <h2 class="text-lg font-semibold mb-6">Components</h2>
+
+          <!-- VButton -->
+          <div class="component-card" id="vbutton">
+            <div class="component-header">
+              <div class="component-info">
+                <h3>VButton</h3>
+                <p>One action per screen gets the primary variant. Everything else steps back.</p>
+              </div>
+              <div class="component-meta">
+                <span class="meta-badge badge">Primary · Secondary</span>
+                <span class="meta-badge badge">Small · Medium · Large</span>
+              </div>
+            </div>
+            <div class="playground">
+              <div class="playground-header">
+                <span class="playground-title">Live Playground</span>
+                <div class="playground-actions">
+                  <button class="reset-btn" onclick="resetProps('vbutton')">Reset props</button>
+                  <button class="copy-btn" id="copy-vbutton-snippet" title="Copy snippet" onclick="copySnippet('vbutton')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="specimen-area" id="specimen-vbutton">
+                <div class="specimen-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  <div>Configure props to see the button specimen</div>
+                </div>
+                <button id="specimen-vbutton-live" class="n-button n-button--primary n-button--medium" style="display:none">Action</button>
+              </div>
+
+              <div class="controls-panel">
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">variant</span>
+                    <span class="prop-type">primary \| secondary</span>
+                  </div>
+                  <select class="control-select" id="ctrl-vbutton-variant" onchange="updateProp('vbutton','variant',this.value)">
+                    <option value="primary">primary</option>
+                    <option value="secondary">secondary</option>
+                  </select>
+                  <p class="prop-description">Visual style — primary for main actions, secondary for supporting actions</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">size</span>
+                    <span class="prop-type">small \| medium \| large</span>
+                  </div>
+                  <select class="control-select" id="ctrl-vbutton-size" onchange="updateProp('vbutton','size',this.value)">
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                  </select>
+                  <p class="prop-description">Touch target size — maps to token heights</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">disabled</span>
+                    <span class="prop-type">boolean</span>
+                  </div>
+                  <label class="control-toggle">
+                    <input type="checkbox" id="ctrl-vbutton-disabled" onchange="updateProp('vbutton','disabled',this.checked)">
+                    <span>Disabled state</span>
+                  </label>
+                  <p class="prop-description">Non-interactive state; removes hover/focus, announces to AT</p>
+                </div>
+              </div>
+
+              <div class="snippet-panel">
+                <div class="snippet-header">
+                  <span class="snippet-title">Snippet</span>
+                  <button class="copy-btn" id="copy-vbutton-snippet-2" title="Copy snippet" onclick="copySnippet('vbutton')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+                <div class="snippet-code" id="snippet-vbutton">&lt;VButton /&gt;</div>
+              </div>
+            </div>
+
+            <div style="padding: var(--space-6); border-top: 1px solid var(--border-subtle);">
+              <h4 style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--text-primary); margin-bottom: var(--space-3);">Usage Notes</h4>
+              <ul style="list-style: disc; padding-left: var(--space-5); color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-relaxed);">
+                <li>Use <code>primary</code> for the main CTA on a screen; <code>secondary</code> for everything else.</li>
+                <li>Disabled buttons are non-interactive and announce their state to screen readers.</li>
+                <li>Sizes scale via tokens: <code>small</code> (24px), <code>medium</code> (32px), <code>large</code> (40px).</li>
+                <li>All colors use semantic tokens — works in light/dark mode automatically.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- VInput -->
+          <div class="component-card" id="vinput">
+            <div class="component-header">
+              <div class="component-info">
+                <h3>VInput</h3>
+                <p>A labelled text field whose state is spelled out — never color alone.</p>
+              </div>
+              <div class="component-meta">
+                <span class="meta-badge badge">Idle · Focus · Error</span>
+                <span class="meta-badge badge">Text · Email · Password</span>
+              </div>
+            </div>
+            <div class="playground">
+              <div class="playground-header">
+                <span class="playground-title">Live Playground</span>
+                <div class="playground-actions">
+                  <button class="reset-btn" onclick="resetProps('vinput')">Reset props</button>
+                  <button class="copy-btn" onclick="copySnippet('vinput')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="specimen-area" id="specimen-vinput">
+                <div class="specimen-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6h22M1 12h22M1 18h22"/></svg>
+                  <div>Configure props to see the input specimen</div>
+                </div>
+                <div id="specimen-vinput-live" style="display:none;">
+                  <div class="n-input-wrapper">
+                    <label class="n-input-label">Work email</label>
+                    <input class="n-input" type="email" placeholder="Enter your email">
+                  </div>
+                </div>
+              </div>
+
+              <div class="controls-panel">
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">label</span>
+                    <span class="prop-type">string</span>
+                  </div>
+                  <input class="control-text" id="ctrl-vinput-label" type="text" value="Work email" oninput="updateProp('vinput','label',this.value)">
+                  <p class="prop-description">Visible label text — also used as aria-label if no explicit one given</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">state</span>
+                    <span class="prop-type">idle \| focus \| error</span>
+                  </div>
+                  <select class="control-select" id="ctrl-vinput-state" onchange="updateProp('vinput','state',this.value)">
+                    <option value="idle">idle</option>
+                    <option value="focus">focus</option>
+                    <option value="error">error</option>
+                  </select>
+                  <p class="prop-description">Explicit interaction state — drives border, background, text color</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">hint</span>
+                    <span class="prop-type">string</span>
+                  </div>
+                  <input class="control-text" id="ctrl-vinput-hint" type="text" value="Enter your email" oninput="updateProp('vinput','hint',this.value)">
+                  <p class="prop-description">Helper text below field — visible to all users</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">type</span>
+                    <span class="prop-type">text \| email \| password \| search</span>
+                  </div>
+                  <select class="control-select" id="ctrl-vinput-type" onchange="updateProp('vinput','type',this.value)">
+                    <option value="text">text</option>
+                    <option value="email">email</option>
+                    <option value="password">password</option>
+                    <option value="search">search</option>
+                  </select>
+                  <p class="prop-description">Native input type — enables browser validation, password masking, etc.</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">disabled</span>
+                    <span class="prop-type">boolean</span>
+                  </div>
+                  <label class="control-toggle">
+                    <input type="checkbox" id="ctrl-vinput-disabled" onchange="updateProp('vinput','disabled',this.checked)">
+                    <span>Disabled state</span>
+                  </label>
+                  <p class="prop-description">Non-interactive, greyed out, removed from tab order</p>
+                </div>
+              </div>
+
+              <div class="snippet-panel">
+                <div class="snippet-header">
+                  <span class="snippet-title">Snippet</span>
+                  <button class="copy-btn" onclick="copySnippet('vinput')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+                <div class="snippet-code" id="snippet-vinput">&lt;VInput /&gt;</div>
+              </div>
+            </div>
+
+            <div style="padding: var(--space-6); border-top: 1px solid var(--border-subtle);">
+              <h4 style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--text-primary); margin-bottom: var(--space-3);">Usage Notes</h4>
+              <ul style="list-style: disc; padding-left: var(--space-5); color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-relaxed);">
+                <li>State is <strong>explicit</strong> — never conveyed by color alone. Screen readers announce state changes.</li>
+                <li>Hint text provides context without cluttering the label.</li>
+                <li>Type attribute supports text, email, password, search — native validation kicks in.</li>
+                <li>Error state pairs with aria-invalid and descriptive error message.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- VCard -->
+          <div class="component-card" id="vcard">
+            <div class="component-header">
+              <div class="component-info">
+                <h3>VCard</h3>
+                <p>A bordered surface for one subject. Elevation is earned, not default.</p>
+              </div>
+              <div class="component-meta">
+                <span class="meta-badge badge">None · Small · Medium · Large</span>
+                <span class="meta-badge badge">Elevatable</span>
+              </div>
+            </div>
+            <div class="playground">
+              <div class="playground-header">
+                <span class="playground-title">Live Playground</span>
+                <div class="playground-actions">
+                  <button class="reset-btn" onclick="resetProps('vcard')">Reset props</button>
+                  <button class="copy-btn" onclick="copySnippet('vcard')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="specimen-area" id="specimen-vcard">
+                <div class="specimen-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="21" y2="21"/></svg>
+                  <div>Configure props to see the card specimen</div>
+                </div>
+                <div id="specimen-vcard-live" style="display:none;">
+                  <div class="n-card n-card--medium">
+                    <h3 class="n-card-title">Quarterly invoice</h3>
+                    <div class="n-card-body">Configure padding, elevation, and title to see changes.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="controls-panel">
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">title</span>
+                    <span class="prop-type">string</span>
+                  </div>
+                  <input class="control-text" id="ctrl-vcard-title" type="text" value="Quarterly invoice" oninput="updateProp('vcard','title',this.value)">
+                  <p class="prop-description">Heading text — rendered as h3 with semantic heading hierarchy</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">padding</span>
+                    <span class="prop-type">none \| small \| medium \| large</span>
+                  </div>
+                  <select class="control-select" id="ctrl-vcard-padding" onchange="updateProp('vcard','padding',this.value)">
+                    <option value="none">none</option>
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                  </select>
+                  <p class="prop-description">Internal spacing — maps to token spacing scale</p>
+                </div>
+
+                <div class="prop-group">
+                  <div class="prop-label-row">
+                    <span class="prop-name">elevated</span>
+                    <span class="prop-type">boolean</span>
+                  </div>
+                  <label class="control-toggle">
+                    <input type="checkbox" id="ctrl-vcard-elevated" onchange="updateProp('vcard','elevated',this.checked)">
+                    <span>Elevated shadow</span>
+                  </label>
+                  <p class="prop-description">Adds shadow and elevated background — use for surfaces that float</p>
+                </div>
+              </div>
+
+              <div class="snippet-panel">
+                <div class="snippet-header">
+                  <span class="snippet-title">Snippet</span>
+                  <button class="copy-btn" onclick="copySnippet('vcard')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+                <div class="snippet-code" id="snippet-vcard">&lt;VCard /&gt;</div>
+              </div>
+            </div>
+
+            <div style="padding: var(--space-6); border-top: 1px solid var(--border-subtle);">
+              <h4 style="font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--text-primary); margin-bottom: var(--space-3);">Usage Notes</h4>
+              <ul style="list-style: disc; padding-left: var(--space-5); color: var(--text-secondary); font-size: var(--text-sm); line-height: var(--leading-relaxed);">
+                <li>Default is flat (no shadow) — elevation is opt-in via <code>elevated</code> prop.</li>
+                <li>Padding scales via tokens: <code>none</code> (0), <code>small</code> (16px), <code>medium</code> (24px), <code>large</code> (32px).</li>
+                <li>Border uses <code>--border-subtle</code> — visible but quiet in both themes.</li>
+                <li>Works as a clickable card when onClick is provided (adds cursor: pointer).</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="brand-mark">NG</div>
+          <div>
+            <div class="brand-text">NextGen Kit</div>
+            <div class="brand-sub">Design System v2.0 · OpenIntelligentUI</div>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a href="#" class="footer-link">Documentation</a>
+          <a href="#" class="footer-link">GitHub</a>
+          <a href="#" class="footer-link">Changelog</a>
+          <a href="#" class="footer-link">License</a>
+        </div>
+
+        <div class="footer-note">
+          Built with the OpenIntelligentUI design system · MIT Licensed · Components persist via localStorage per device
+        </div>
+      </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Copied to clipboard</div>
+
+    <script>
+      /* ========================================================================
+         NextGen Kit — Application Logic
+         ======================================================================== */
+
+      // Component defaults
+      const DEFAULTS = {
+        vbutton: { variant: 'primary', size: 'medium', disabled: false },
+        vinput: { label: 'Work email', state: 'idle', hint: 'Enter your email', type: 'email', disabled: false },
+        vcard: { title: 'Quarterly invoice', padding: 'medium', elevated: false }
+      };
+
+      // Current state (loaded from localStorage or defaults)
+      const state = {};
+
+      // Initialize state from localStorage
+      function initState() {
+        for (const [key, defaults] of Object.entries(DEFAULTS)) {
+          try {
+            const stored = localStorage.getItem(`nextgen-${key}`);
+            state[key] = stored ? { ...defaults, ...JSON.parse(stored) } : { ...defaults };
+          } catch {
+            state[key] = { ...defaults };
+          }
+        }
+      }
+
+      // Save state to localStorage
+      function saveState(componentId) {
+        try {
+          localStorage.setItem(`nextgen-${componentId}`, JSON.stringify(state[componentId]));
+        } catch {
+          // localStorage blocked — silently no-op
+        }
+      }
+
+      // Update a prop and re-render
+      window.updateProp = function(componentId, prop, value) {
+        state[componentId][prop] = value;
+        saveState(componentId);
+        renderComponent(componentId);
+      };
+
+      // Reset props to defaults
+      window.resetProps = function(componentId) {
+        state[componentId] = { ...DEFAULTS[componentId] };
+        saveState(componentId);
+        syncControls(componentId);
+        renderComponent(componentId);
+      };
+
+      // Sync form controls with current state
+      function syncControls(componentId) {
+        const s = state[componentId];
+        const prefix = `ctrl-${componentId}`;
+
+        for (const [key, value] of Object.entries(s)) {
+          const el = document.getElementById(`${prefix}-${key}`);
+          if (!el) continue;
+
+          if (el.tagName === 'SELECT') {
+            el.value = String(value);
+          } else if (el.tagName === 'INPUT' && el.type === 'checkbox') {
+            el.checked = Boolean(value);
+          } else if (el.tagName === 'INPUT') {
+            el.value = value;
+          }
+        }
+      }
+
+      // Generate snippet HTML
+      function generateSnippet(componentId) {
+        const s = state[componentId];
+        const tagMap = { vbutton: 'VButton', vinput: 'VInput', vcard: 'VCard' };
+        const tag = tagMap[componentId];
+        const defaults = DEFAULTS[componentId];
+
+        const attrs = [];
+        for (const [key, value] of Object.entries(s)) {
+          if (value === defaults[key]) continue;
+          if (typeof value === 'boolean') {
+            if (value) attrs.push(key);
+          } else if (typeof value === 'string') {
+            attrs.push(`${key}="${escapeHtml(value)}"`);
+          } else {
+            attrs.push(`:${key}="${JSON.stringify(value)}"`);
+          }
+        }
+
+        const attrString =
+          attrs.length === 0 ? ''
+          : attrs.length <= 2 ? ' ' + attrs.join(' ')
+          : '\n  ' + attrs.join('\n  ') + '\n';
+
+        return `<${tag}${attrString} />`;
+      }
+
+      // Escape HTML
+      function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // Copy snippet to clipboard
+      window.copySnippet = function(componentId) {
+        const snippet = generateSnippet(componentId);
+        const codeEl = document.getElementById(`snippet-${componentId}`);
+        codeEl.textContent = snippet;
+
+        navigator.clipboard.writeText(snippet).then(() => {
+          showToast('Copied to clipboard');
+          const btn = document.querySelector(`#copy-${componentId}-snippet, [onclick="copySnippet('${componentId}')"]`);
+          if (btn) {
+            btn.classList.add('copied');
+            setTimeout(() => btn.classList.remove('copied'), 1500);
+          }
+        });
+      };
+
+      // Show toast notification
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      }
+
+      // Render component specimen
+      function renderComponent(componentId) {
+        const s = state[componentId];
+
+        // Update snippet
+        const snippet = generateSnippet(componentId);
+        document.getElementById(`snippet-${componentId}`).textContent = snippet;
+
+        // Render specimen based on component
+        if (componentId === 'vbutton') {
+          renderButton(s);
+        } else if (componentId === 'vinput') {
+          renderInput(s);
+        } else if (componentId === 'vcard') {
+          renderCard(s);
+        }
+      }
+
+      function renderButton(s) {
+        const live = document.getElementById('specimen-vbutton-live');
+        const placeholder = document.getElementById('specimen-vbutton').querySelector('.specimen-placeholder');
+
+        live.className = `n-button n-button--${s.variant} n-button--${s.size}`;
+        if (s.disabled) live.classList.add('n-button--disabled');
+        live.disabled = s.disabled;
+        live.textContent = 'Action';
+        live.style.display = 'inline-flex';
+        placeholder.style.display = 'none';
+      }
+
+      function renderInput(s) {
+        const live = document.getElementById('specimen-vinput-live');
+        const placeholder = document.getElementById('specimen-vinput').querySelector('.specimen-placeholder');
+
+        live.innerHTML = `
+          <div class="n-input-wrapper">
+            <label class="n-input-label">${escapeHtml(s.label)}</label>
+            <input class="n-input n-input--${s.state}" type="${s.type}" placeholder="${escapeHtml(s.hint)}" ${s.disabled ? 'disabled' : ''}>
+          </div>
+        `;
+        live.style.display = 'block';
+        placeholder.style.display = 'none';
+      }
+
+      function renderCard(s) {
+        const live = document.getElementById('specimen-vcard-live');
+        const placeholder = document.getElementById('specimen-vcard').querySelector('.specimen-placeholder');
+
+        live.className = `n-card n-card--${s.padding}`;
+        if (s.elevated) live.classList.add('n-card--elevated');
+        live.innerHTML = `
+          <h3 class="n-card-title">${escapeHtml(s.title)}</h3>
+          <div class="n-card-body">Configure padding, elevation, and title to see changes.</div>
+        `;
+        live.style.display = 'block';
+        placeholder.style.display = 'none';
+      }
+
+      // Theme toggle
+      function initTheme() {
+        const toggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check saved theme or system preference
+        const saved = localStorage.getItem('nextgen-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = saved === 'dark' || (saved === null && prefersDark);
+
+        if (isDark) {
+          document.body.classList.add('dark-mode');
+        }
+
+        toggle.addEventListener('click', () => {
+          const isDarkNow = document.body.classList.toggle('dark-mode');
+          localStorage.setItem('nextgen-theme', isDarkNow ? 'dark' : 'light');
+        });
+      }
+
+      // Smooth scroll to component
+      window.scrollToComponent = function(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        initState();
+        initTheme();
+
+        // Sync controls and render all components
+        for (const componentId of Object.keys(DEFAULTS)) {
+          syncControls(componentId);
+          renderComponent(componentId);
+        }
+      });
+    </script>
+</body>
+</html>
